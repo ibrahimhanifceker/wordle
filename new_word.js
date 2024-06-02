@@ -53,7 +53,7 @@ silme.type='button';
 silme.innerHTML='🗑️';
 document.getElementById('keyboard_row_3').appendChild(silme);
 
-if(screen.width<1300){
+if(screen.width>=1300){
     document.getElementsByTagName('html')[0].style="position: absolute; left: 450px";
 }
 else{
