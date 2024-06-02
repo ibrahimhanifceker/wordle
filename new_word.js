@@ -86,6 +86,8 @@ var word=arr[Math.floor(Math.random()*arr.length)],s='';
 
 var cnt=0,cnt2=0;
 
+console.log(word);
+
 function to_Lower(str){
     if(str=='İ'){
         return 'i';
@@ -93,8 +95,60 @@ function to_Lower(str){
     if(str=='I'){
         return 'ı';
     }
+    console.log(str);
+    console.log(str.toLowerCase());
     return str.toLowerCase();
 }
+
+document.addEventListener('keydown',function(x){
+    if(x.keyCode==8){
+        delete_letter();
+        return;
+    }
+    if(x.keyCode==13){
+        new_word();
+        return;
+    }
+    if(cnt2==5)return;
+    for(var i=0;i<26;i++){
+        if(x.keyCode==i+65){
+            let c=String.fromCharCode(i+65);
+            console.log(c);
+            s+=to_Lower(c);
+            document.getElementById('my_table').rows[cnt].cells[cnt2].innerHTML=c;
+            cnt2++;
+            return;
+        }
+    }
+    let c='?';
+    switch(x.keyCode){
+        case 186:
+            c='Ş';
+            break;
+        case 191:
+            c='Ö';
+            break;
+        case 219:
+            c='Ğ';
+            break;
+        case 220:
+            c='Ç';
+            break;
+        case 221:
+            c='Ü';
+            break;
+        case 222:
+            c='İ';
+            break;
+        default:
+            return;
+    }
+    console.log(c);
+    s+=to_Lower(c);
+    document.getElementById('my_table').rows[cnt].cells[cnt2].innerHTML=c;
+    cnt2++;
+    return;
+});
 
 function new_letter(){
     if(cnt2==5)return;
@@ -113,10 +167,6 @@ function delete_letter(){
 }
 
 function new_word(){
-    if(cnt==6){
-        alert('kelime '+word+' idi.');
-        return;
-    }
     if(s.length!=5){
         alert('Kelime 5 harfli olmalı!');
         word_clear();
@@ -155,7 +205,7 @@ function new_word(){
             for(var j=0;j<5;j++){
                 if(s[i]==word[j] && vis[j]!=0){
                     document.getElementById('my_table').rows[cnt].cells[i].style.backgroundColor="yellow";
-                    if(document.getElementById(t[i]).style.backgroundColor!="green"){
+                    if(document.getElementById(t[i]).style.backgroundColor!="rgb(2, 160, 2)"){
                         document.getElementById(t[i]).style.backgroundColor="yellow";
                     }
                     vis[j]=0;
@@ -165,13 +215,20 @@ function new_word(){
             }
             if(!ok){
                 document.getElementById('my_table').rows[cnt].cells[i].style.backgroundColor="gray";
-                if(document.getElementById(t[i]).style.backgroundColor!="green"){
+                if(document.getElementById(t[i]).style.backgroundColor!="rgb(2, 160, 2)"){
                     document.getElementById(t[i]).style.backgroundColor="gray";
                 }
             }
         }
     }
+    if(s==word){
+        throw '';
+    }
     cnt++;
     cnt2=0;
     s='';
+    if(cnt==6){
+        alert('kelime '+word+' idi.');
+        return;
+    }
 }
