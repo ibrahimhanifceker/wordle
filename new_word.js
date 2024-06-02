@@ -6,7 +6,7 @@ var keyboard=[
 ['Z','X','C','V','B','N','M','Ö','Ç']
 ];
 
-if(screen.width<1300){
+if(screen.width>=1300){
     document.getElementsByTagName('html')[0].style="position: absolute; left: 450px";
 }
 else{
