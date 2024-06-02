@@ -6,6 +6,11 @@ var keyboard=[
 ['Z','X','C','V','B','N','M','Ö','Ç']
 ];
 
+if(screen.width>=1300){
+    console.log('A');
+    document.getElementsByTagName('html')[0].style="position: absolute; left: 450px";
+}
+
 for(var i=0;i<10;i++){
     const b=document.createElement('button');
     b.className='keyboard_buttons_row_1';
@@ -135,7 +140,9 @@ function new_word(){
             }
             if(!ok){
                 document.getElementById('my_table').rows[cnt].cells[i].style.backgroundColor="gray";
-                document.getElementById(t[i]).style.backgroundColor="gray";
+                if(document.getElementById(t[i]).style.backgroundColor!="green"){
+                    document.getElementById(t[i]).style.backgroundColor="gray";
+                }
             }
         }
     }
