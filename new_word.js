@@ -6,18 +6,6 @@ var keyboard=[
 ['Z','X','C','V','B','N','M','Ö','Ç']
 ];
 
-if(screen.width>=1300){
-    document.getElementsByTagName('html')[0].style="position: absolute; left: 450px";
-}
-else{
-    var x=document.getElementsByClassName('letters');
-    for(var i=0;i<x.length;i++){
-        x[i].style.width="65px";
-        x[i].style.height="65px";
-    }
-    document.getElementById('my_table').style.marginLeft="50px";
-}
-
 for(var i=0;i<10;i++){
     const b=document.createElement('button');
     b.className='keyboard_buttons_row_1';
@@ -64,6 +52,35 @@ silme.onclick=delete_letter;
 silme.type='button';
 silme.innerHTML='🗑️';
 document.getElementById('keyboard_row_3').appendChild(silme);
+
+if(screen.width<1300){
+    document.getElementsByTagName('html')[0].style="position: absolute; left: 450px";
+}
+else{
+    let x=document.getElementsByClassName('letters');
+    for(var i=0;i<x.length;i++){
+        x[i].style.width="65px";
+        x[i].style.height="65px";
+    }
+    document.getElementById('my_table').style.marginLeft="50px";
+    let a=document.getElementsByClassName('keyboard_buttons_row_1');
+    for(var i=0;i<a.length;i++){
+        a[i].style.width="25px";
+        a[i].style.height="25px";
+    }
+    let b=document.getElementsByClassName('keyboard_buttons_row_2');
+    for(var i=0;i<b.length;i++){
+        b[i].style.width="25px";
+        b[i].style.height="25px";
+    }
+    let c=document.getElementsByClassName('keyboard_buttons_row_3');
+    for(var i=0;i<c.length;i++){
+        c[i].style.width="25px";
+        c[i].style.height="25px";
+    }
+    document.getElementById("tahmin").style.height="25px";
+    document.getElementById('silme').style.height="25px";
+}
 
 var word=arr[Math.floor(Math.random()*arr.length)],s='';
 
