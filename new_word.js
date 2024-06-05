@@ -13,7 +13,7 @@ for(var i=0;i<10;i++){
     b.innerHTML=keyboard[0][i];
     b.onclick=new_letter;
     if(i==0){
-        b.style="margin-left:45px";
+        b.style="margin-left:0px";
     }
     document.getElementById('keyboard_row_1').appendChild(b);
 }
@@ -25,13 +25,15 @@ for(var i=0;i<11;i++){
     b.innerHTML=keyboard[1][i];
     b.onclick=new_letter;
     if(i==0){
-        b.style="margin-left:25px";
+        b.style="margin-left:0px";
     }
     document.getElementById('keyboard_row_2').appendChild(b);
 }
 
 const tahmin=document.createElement('button');
 tahmin.id='tahmin';
+tahmin.className='keyboard_buttons_row_3';
+tahmin.style.marginLeft='0px';
 tahmin.onclick=new_word;
 tahmin.type='button';
 tahmin.innerHTML='Tahmin';
@@ -48,45 +50,62 @@ for(var i=0;i<9;i++){
 
 const silme=document.createElement('button');
 silme.id='silme';
+silme.className='keyboard_buttons_row_3';
 silme.onclick=delete_letter;
 silme.type='button';
 silme.innerHTML='🗑️';
 document.getElementById('keyboard_row_3').appendChild(silme);
 
-if(screen.width>=1300){
-    document.getElementsByTagName('html')[0].style="position: absolute; left: 450px";
+var x=(window.innerWidth/440);
+var y=(window.innerHeight/452);
+var z=Math.min(x,y);
+
+var wid_table=5*Math.floor(z*50)+6*Math.floor(2*z)+10;
+
+document.getElementById('my_table').style.marginLeft=Math.floor((window.innerWidth-wid_table)/2)+'px';
+document.getElementById('my_table').style.borderSpacing=Math.floor(2*z)+'px'
+var blocks=document.getElementsByClassName('letters');
+for(let i=0;i<blocks.length;i++){
+    blocks[i].style.width=Math.floor(50*z)+'px';
+    blocks[i].style.height=Math.floor(50*z)+'px';
 }
-else{
-    let x=document.getElementsByClassName('letters');
-    for(var i=0;i<x.length;i++){
-        x[i].style.width="65px";
-        x[i].style.height="65px";
-    }
-    document.getElementById('my_table').style.marginLeft="50px";
-    let a=document.getElementsByClassName('keyboard_buttons_row_1');
-    for(var i=0;i<a.length;i++){
-        a[i].style.width="25px";
-        a[i].style.height="25px";
-    }
-    let b=document.getElementsByClassName('keyboard_buttons_row_2');
-    for(var i=0;i<b.length;i++){
-        b[i].style.width="25px";
-        b[i].style.height="25px";
-    }
-    let c=document.getElementsByClassName('keyboard_buttons_row_3');
-    for(var i=0;i<c.length;i++){
-        c[i].style.width="25px";
-        c[i].style.height="25px";
-    }
-    document.getElementById("tahmin").style.height="25px";
-    document.getElementById('silme').style.height="25px";
+
+var row_1_wid=10*Math.floor(30*z)+9*Math.floor(7*z);
+
+document.getElementById('keyboard_row_1').style.marginLeft=Math.floor((window.innerWidth-row_1_wid)/2)+'px';
+var row_1=document.getElementsByClassName('keyboard_buttons_row_1');
+for(let i=0;i<row_1.length;i++){
+    row_1[i].style.width=Math.floor(30*z)+'px';
+    row_1[i].style.height=Math.floor(30*z)+'px';
+    if(i!=0)row_1[i].style.marginLeft=Math.floor(7*z)+'px';
+    row_1[i].style.marginTop=Math.floor(15*z)+'px';
+}
+
+var row_2_wid=11*Math.floor(30*z)+10*Math.floor(7*z);
+
+document.getElementById('keyboard_row_2').style.marginLeft=Math.floor((window.innerWidth-row_2_wid)/2)+'px';
+var row_2=document.getElementsByClassName('keyboard_buttons_row_2');
+for(let i=0;i<row_2.length;i++){
+    row_2[i].style.width=Math.floor(30*z)+'px';
+    row_2[i].style.height=Math.floor(30*z)+'px';
+    if(i!=0)row_2[i].style.marginLeft=Math.floor(7*z)+'px';
+    row_2[i].style.marginTop=Math.floor(10*z)+'px';
+}
+
+var row_3_wid=Math.floor(60*z)+9*Math.floor(30*z)+10*Math.floor(7*z)+Math.floor(40*z);
+
+document.getElementById('keyboard_row_3').style.marginLeft=Math.floor((window.innerWidth-row_3_wid)/2)+'px';
+var row_3=document.getElementsByClassName('keyboard_buttons_row_3');
+for(let i=0;i<row_3.length;i++){
+    row_3[i].style.width=(i==0?Math.floor(60*z):i==row_3.length-1?Math.floor(40*z):Math.floor(30*z))+'px';
+    row_3[i].style.height=Math.floor(30*z)+'px';
+    if(i!=0)row_3[i].style.marginLeft=Math.floor(7*z)+'px';
+    row_3[i].style.marginTop=Math.floor(10*z)+'px';
 }
 
 var word=arr[Math.floor(Math.random()*arr.length)],s='';
 
 var cnt=0,cnt2=0;
-
-console.log(word);
 
 function to_Lower(str){
     if(str=='İ'){
@@ -95,8 +114,6 @@ function to_Lower(str){
     if(str=='I'){
         return 'ı';
     }
-    console.log(str);
-    console.log(str.toLowerCase());
     return str.toLowerCase();
 }
 
@@ -113,7 +130,6 @@ document.addEventListener('keydown',function(x){
     for(var i=0;i<26;i++){
         if(x.keyCode==i+65){
             let c=String.fromCharCode(i+65);
-            console.log(c);
             s+=to_Lower(c);
             document.getElementById('my_table').rows[cnt].cells[cnt2].innerHTML=c;
             cnt2++;
@@ -143,7 +159,6 @@ document.addEventListener('keydown',function(x){
         default:
             return;
     }
-    console.log(c);
     s+=to_Lower(c);
     document.getElementById('my_table').rows[cnt].cells[cnt2].innerHTML=c;
     cnt2++;
