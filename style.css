@@ -1,11 +1,19 @@
+html{
+    touch-action: manipulation;
+}
+body{
+    margin-left:0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 .letters{
     width: 50px;
     height: 50px;
     border: 1px solid black;
+    padding: 0px;
     font-size: 35px;
     text-align: center;
-    margin-left: 10px;
-    margin-top: 10px;
 }
 .keyboard_buttons_row_1{
     margin-top:15px;
@@ -29,12 +37,13 @@
     text-align: center;
 }
 #my_table{
-    margin-left:83px;
-    margin-top: 20px;
+    border-spacing: 2px;
+    padding: 0px;
 }
 #tahmin{
     text-align: center;
     height: 30px;
+    width:60px;
 }
 #silme{
     margin-left:7px;
