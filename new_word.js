@@ -56,52 +56,58 @@ silme.type='button';
 silme.innerHTML='🗑️';
 document.getElementById('keyboard_row_3').appendChild(silme);
 
-var x=(window.innerWidth/440);
-var y=(window.innerHeight/452);
-var z=Math.min(x,y);
+function size_normalization(){
+    var x=(window.innerWidth/440);
+    var y=(window.innerHeight/452);
+    var z=Math.min(x,y);
 
-var wid_table=5*Math.floor(z*50)+6*Math.floor(2*z)+10;
+    var wid_table=5*Math.floor(z*50)+6*Math.floor(2*z)+10;
 
-document.getElementById('my_table').style.marginLeft=Math.floor((window.innerWidth-wid_table)/2)+'px';
-document.getElementById('my_table').style.borderSpacing=Math.floor(2*z)+'px'
-var blocks=document.getElementsByClassName('letters');
-for(let i=0;i<blocks.length;i++){
-    blocks[i].style.width=Math.floor(50*z)+'px';
-    blocks[i].style.height=Math.floor(50*z)+'px';
+    document.getElementById('my_table').style.marginLeft=Math.floor((window.innerWidth-wid_table)/2)+'px';
+    document.getElementById('my_table').style.borderSpacing=Math.floor(2*z)+'px'
+    var blocks=document.getElementsByClassName('letters');
+    for(let i=0;i<blocks.length;i++){
+        blocks[i].style.width=Math.floor(50*z)+'px';
+        blocks[i].style.height=Math.floor(50*z)+'px';
+    }
+
+    var row_1_wid=10*Math.floor(30*z)+9*Math.floor(7*z);
+
+    document.getElementById('keyboard_row_1').style.marginLeft=Math.floor((window.innerWidth-row_1_wid)/2)+'px';
+    var row_1=document.getElementsByClassName('keyboard_buttons_row_1');
+    for(let i=0;i<row_1.length;i++){
+        row_1[i].style.width=Math.floor(30*z)+'px';
+        row_1[i].style.height=Math.floor(30*z)+'px';
+        if(i!=0)row_1[i].style.marginLeft=Math.floor(7*z)+'px';
+        row_1[i].style.marginTop=Math.floor(15*z)+'px';
+    }
+
+    var row_2_wid=11*Math.floor(30*z)+10*Math.floor(7*z);
+
+    document.getElementById('keyboard_row_2').style.marginLeft=Math.floor((window.innerWidth-row_2_wid)/2)+'px';
+    var row_2=document.getElementsByClassName('keyboard_buttons_row_2');
+    for(let i=0;i<row_2.length;i++){
+        row_2[i].style.width=Math.floor(30*z)+'px';
+        row_2[i].style.height=Math.floor(30*z)+'px';
+        if(i!=0)row_2[i].style.marginLeft=Math.floor(7*z)+'px';
+        row_2[i].style.marginTop=Math.floor(10*z)+'px';
+    }
+
+    var row_3_wid=Math.floor(60*z)+9*Math.floor(30*z)+10*Math.floor(7*z)+Math.floor(40*z);
+
+    document.getElementById('keyboard_row_3').style.marginLeft=Math.floor((window.innerWidth-row_3_wid)/2)+'px';
+    var row_3=document.getElementsByClassName('keyboard_buttons_row_3');
+    for(let i=0;i<row_3.length;i++){
+        row_3[i].style.width=(i==0?Math.floor(60*z):i==row_3.length-1?Math.floor(40*z):Math.floor(30*z))+'px';
+        row_3[i].style.height=Math.floor(30*z)+'px';
+        if(i!=0)row_3[i].style.marginLeft=Math.floor(7*z)+'px';
+        row_3[i].style.marginTop=Math.floor(10*z)+'px';
+    }
 }
 
-var row_1_wid=10*Math.floor(30*z)+9*Math.floor(7*z);
+size_normalization();
 
-document.getElementById('keyboard_row_1').style.marginLeft=Math.floor((window.innerWidth-row_1_wid)/2)+'px';
-var row_1=document.getElementsByClassName('keyboard_buttons_row_1');
-for(let i=0;i<row_1.length;i++){
-    row_1[i].style.width=Math.floor(30*z)+'px';
-    row_1[i].style.height=Math.floor(30*z)+'px';
-    if(i!=0)row_1[i].style.marginLeft=Math.floor(7*z)+'px';
-    row_1[i].style.marginTop=Math.floor(15*z)+'px';
-}
-
-var row_2_wid=11*Math.floor(30*z)+10*Math.floor(7*z);
-
-document.getElementById('keyboard_row_2').style.marginLeft=Math.floor((window.innerWidth-row_2_wid)/2)+'px';
-var row_2=document.getElementsByClassName('keyboard_buttons_row_2');
-for(let i=0;i<row_2.length;i++){
-    row_2[i].style.width=Math.floor(30*z)+'px';
-    row_2[i].style.height=Math.floor(30*z)+'px';
-    if(i!=0)row_2[i].style.marginLeft=Math.floor(7*z)+'px';
-    row_2[i].style.marginTop=Math.floor(10*z)+'px';
-}
-
-var row_3_wid=Math.floor(60*z)+9*Math.floor(30*z)+10*Math.floor(7*z)+Math.floor(40*z);
-
-document.getElementById('keyboard_row_3').style.marginLeft=Math.floor((window.innerWidth-row_3_wid)/2)+'px';
-var row_3=document.getElementsByClassName('keyboard_buttons_row_3');
-for(let i=0;i<row_3.length;i++){
-    row_3[i].style.width=(i==0?Math.floor(60*z):i==row_3.length-1?Math.floor(40*z):Math.floor(30*z))+'px';
-    row_3[i].style.height=Math.floor(30*z)+'px';
-    if(i!=0)row_3[i].style.marginLeft=Math.floor(7*z)+'px';
-    row_3[i].style.marginTop=Math.floor(10*z)+'px';
-}
+window.addEventListener('resize',size_normalization);
 
 var word=arr[Math.floor(Math.random()*arr.length)],s='';
 
