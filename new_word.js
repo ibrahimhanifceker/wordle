@@ -57,6 +57,7 @@ silme.innerHTML='🗑️';
 document.getElementById('keyboard_row_3').appendChild(silme);
 
 function size_normalization(){
+    console.log('size');
     var x=(window.innerWidth/440);
     var y=(window.innerHeight/452);
     var z=Math.min(x,y);
@@ -124,6 +125,7 @@ function to_Lower(str){
 }
 
 document.addEventListener('keydown',function(x){
+    console.log(x.keyCode);
     if(x.keyCode==8){
         delete_letter();
         return;
