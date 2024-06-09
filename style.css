@@ -1,5 +1,6 @@
 html{
     touch-action: manipulation;
+    background-color: rgb(216, 254, 216);
 }
 body{
     margin-left:0px;
@@ -14,8 +15,10 @@ body{
     padding: 0px;
     font-size: 35px;
     text-align: center;
+    background-color: white;
 }
 .keyboard_buttons_row_1{
+    background-color: rgb(218, 218, 218);
     margin-top:15px;
     margin-left: 7px;
     width: 30px;
@@ -23,6 +26,7 @@ body{
     text-align: center;
 }
 .keyboard_buttons_row_2{
+    background-color: rgb(218, 218, 218);
     margin-top:10px;
     margin-left: 7px;
     width: 30px;
@@ -30,6 +34,7 @@ body{
     text-align: center;
 }
 .keyboard_buttons_row_3{
+    background-color: rgb(218, 218, 218);
     margin-top:10px;
     margin-left: 7px;
     width: 30px;
