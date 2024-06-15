@@ -56,14 +56,82 @@ silme.type='button';
 silme.innerHTML='🗑️';
 document.getElementById('keyboard_row_3').appendChild(silme);
 
+var which_guess=-1;
+
 function size_normalization(){
     console.log('size');
     var x=(window.innerWidth/440);
-    var y=(window.innerHeight/452);
+    var y=(window.innerHeight/491);
     var z=Math.min(x,y);
+
+    console.log(Math.floor(300*z));
+
+    document.getElementById('Guide').style.width=Math.floor(350*z)+'px';
+    document.getElementById('Guide').style.height=Math.floor(350*z)+'px';
+    document.getElementById('Guide').style.left=Math.floor((innerWidth-Math.floor(350*z))/2)+'px';
+    document.getElementById('Guide').style.top=Math.floor((innerHeight-Math.floor(350*z))/2)+'px';
+
+    document.getElementById('Redo').style.width=Math.floor(25*z)+'px';
+    document.getElementById('Redo').style.height=Math.floor(25*z)+'px';
+
+    document.getElementById('Restart').style.width=Math.floor(25*z)+'px';
+    document.getElementById('Restart').style.height=Math.floor(25*z)+'px';
+    document.getElementById('Restart').style.marginLeft=Math.floor(10*z)+'px';
+    document.getElementById('Restart').style.marginTop=Math.floor(z)+'px';
+
+    document.getElementById('Stats_Img').style.width=Math.floor(25*z)+'px';
+    document.getElementById('Stats_Img').style.height=Math.floor(25*z)+'px';
+
+    
+    document.getElementById('Stats').style.width=Math.floor(25*z)+'px';
+    document.getElementById('Stats').style.height=Math.floor(25*z)+'px';
+    document.getElementById('Stats').style.marginLeft=Math.floor(20*z)+'px';
+    document.getElementById('Stats').style.marginTop=Math.floor(z)+'px';
+
+    document.getElementById('Info_Img').style.width=Math.floor(25*z)+'px';
+    document.getElementById('Info_Img').style.height=Math.floor(25*z)+'px';
+
+    
+    document.getElementById('Info').style.width=Math.floor(25*z)+'px';
+    document.getElementById('Info').style.height=Math.floor(25*z)+'px';
+    document.getElementById('Info').style.marginLeft=Math.floor(20*z)+'px';
+    document.getElementById('Info').style.marginTop=Math.floor(z)+'px';
+
+    document.getElementById('Statistics').width=Math.floor(300*z);
+    document.getElementById('Statistics').height=Math.floor(300*z);
+    document.getElementById('Statistics').style.left=Math.floor((window.innerWidth-Math.floor(300*z))/2)+'px';
+    document.getElementById('Statistics').style.top=Math.floor((window.innerHeight-Math.floor(300*z))/2)+'px';
+
+    const canvas = document.getElementById("Statistics");
+    const ctx = canvas.getContext("2d");
+    let max_val=0;
+    for(let i=0;i<6;i++){
+        max_val=Math.max(max_val,Math.floor(localStorage.getItem('Number_of_guesses'+i)));
+    }
+    console.log(max_val);
+    for(let i=1;i<=6;i++){
+        ctx.fillStyle="black";
+        ctx.font=Math.floor(17*z)+"px Arial";
+        ctx.fillText(i+':',Math.floor(10*z),Math.floor(30*i*z));
+        ctx.globalAlpha=1;
+        if(which_guess!=i-1)ctx.fillStyle="rgb(2,150,2)";
+        else ctx.fillStyle="yellow";
+        ctx.fillRect(Math.floor(30*z),Math.floor(30*i*z),Math.floor(250*z*Math.floor(localStorage.getItem('Number_of_guesses'+(i-1)))/max_val),-Math.floor(14*z));
+        ctx.fillStyle="gray";
+        ctx.font=Math.floor(15*z)+"px Arial";
+        ctx.fillText(localStorage.getItem('Number_of_guesses'+(i-1)),Math.floor(250*z*Math.floor(localStorage.getItem('Number_of_guesses'+(i-1)))/max_val)+Math.floor(32*z),Math.floor(30*i*z));
+    }
+
+    document.getElementById('Title').style.height=Math.floor(27*z)+'px';
+    document.getElementById('Title').style.fontSize=Math.floor(24*z)+'px';
+    let sz=document.getElementById('Title').offsetWidth;
+    document.getElementById('Title').style.marginLeft=Math.floor((window.innerWidth-sz)/2)+'px';
+    
+    document.getElementById('Line').style.borderWidth=Math.floor(z)+'px';
 
     var wid_table=5*Math.floor(z*50)+6*Math.floor(2*z)+10;
 
+    document.getElementById('my_table').style.marginTop=Math.floor(10*z)+'px';
     document.getElementById('my_table').style.marginLeft=Math.floor((window.innerWidth-wid_table)/2)+'px';
     document.getElementById('my_table').style.borderSpacing=Math.floor(2*z)+'px'
     var blocks=document.getElementsByClassName('letters');
@@ -106,13 +174,7 @@ function size_normalization(){
     }
 }
 
-size_normalization();
-
 window.addEventListener('resize',size_normalization);
-
-var word=arr[Math.floor(Math.random()*arr.length)],s='';
-
-var cnt=0,cnt2=0;
 
 function to_Lower(str){
     if(str=='İ'){
@@ -125,6 +187,7 @@ function to_Lower(str){
 }
 
 document.addEventListener('keydown',function(x){
+    if(game_ended)return;
     console.log(x.keyCode);
     if(x.keyCode==8){
         delete_letter();
@@ -174,6 +237,7 @@ document.addEventListener('keydown',function(x){
 });
 
 function new_letter(){
+    if(game_ended)return;
     if(cnt2==5)return;
     var c=this.innerHTML;
     s+=to_Lower(c);
@@ -182,6 +246,7 @@ function new_letter(){
 }
 
 function delete_letter(){
+    if(game_ended)return;
     if(cnt2==0)return;
     cnt2--;
     s=s.substring(0,cnt2);
@@ -190,9 +255,9 @@ function delete_letter(){
 }
 
 function new_word(){
+    if(game_ended)return;
     if(s.length!=5){
         alert('Kelime 5 harfli olmalı!');
-        word_clear();
         return;
     }
     var ok=false;
@@ -205,6 +270,11 @@ function new_word(){
         alert('Anlamlı bir kelime girin!');
         return;
     }
+    let typed=false;
+    if(localStorage.getItem('Guess'+cnt)!=null){
+        typed=true;
+    }
+    localStorage.setItem('Guess'+cnt,s);
     var t=s.toUpperCase();
     for(var i=0;i<s.length;i++){
         if(s[i]=='i'){
@@ -245,13 +315,120 @@ function new_word(){
         }
     }
     if(s==word){
-        throw '';
+        slide();
+        game_ended=true;
+        which_guess=cnt;
+        if(!typed)localStorage.setItem('Number_of_guesses'+cnt,Math.floor(localStorage.getItem('Number_of_guesses'+cnt))+1);
+        size_normalization();
+        return;
     }
     cnt++;
     cnt2=0;
     s='';
     if(cnt==6){
+        game_ended=true;
         alert('kelime '+word+' idi.');
         return;
     }
 }
+
+function change_picture(){
+    document.getElementById('Redo').src="redo-icon-gray.png";
+}
+
+function change_picture2(){
+    document.getElementById('Redo').src="redo-icon.png";
+}
+
+function change_picture3(){
+    document.getElementById('Stats_Img').src="stats-gray.png";
+}
+
+function change_picture4(){
+    document.getElementById('Stats_Img').src="stats.png";
+}
+
+function change_picture5(){
+    document.getElementById('Info_Img').src="question_mark-gray.png";
+}
+
+function change_picture6(){
+    document.getElementById('Info_Img').src="question_mark.png";
+}
+
+function Restart_the_game(){
+    localStorage.removeItem('word');
+    for(let i=0;i<6;i++){
+        if(localStorage.getItem('Guess'+i)==null){
+            break;
+        }
+        localStorage.removeItem('Guess'+i);
+    }
+    location.reload();
+}
+
+var is_Animated=false,is_Animated2=false;
+
+function slide(){
+    console.log('slide');
+    if(is_Animated2){
+        slide2();
+    }
+    if(is_Animated){
+        document.getElementById('Statistics').style.animation='disappear 0.5s linear forwards';
+        is_Animated=false;
+    }
+    else{
+        document.getElementById('Statistics').style.animation='down 0.5s linear forwards';
+        is_Animated=true;
+    }
+}
+
+function slide2(){
+    console.log('slide');
+    if(is_Animated){
+        slide();
+    }
+    if(is_Animated2){
+        document.getElementById('Guide').style.animation='disappear2 0.5s linear forwards';
+        is_Animated2=false;
+    }
+    else{
+        document.getElementById('Guide').style.animation='down2 0.5s linear forwards';
+        is_Animated2=true;
+    }
+}
+
+if(localStorage.length==0){
+    slide2();
+    localStorage.setItem('Current_streak','0');
+    localStorage.setItem('Max_streak','0');
+    for(let i=0;i<6;i++){
+        localStorage.setItem('Number_of_guesses'+i,'0');
+    }
+}
+
+var word=arr[Math.floor(Math.random()*arr.length)],s='';
+
+if(localStorage.getItem('word')!=null){
+    word=localStorage.getItem('word');
+}
+else{
+    localStorage.setItem('word',word);
+}
+
+console.log(word);
+
+var cnt=0,cnt2=0;
+var game_ended=false;
+
+for(let i=0;i<6;i++){
+    if(localStorage.getItem('Guess'+i)==null){
+        break;
+    }
+    console.log(i+'aaa');
+    s=localStorage.getItem('Guess'+i);
+    new_word();
+}
+
+size_normalization();
