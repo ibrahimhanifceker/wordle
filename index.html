@@ -3,13 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv='cache-control' content='no-cache'> 
-    <meta http-equiv='expires' content='0'> 
-    <meta http-equiv='pragma' content='no-cache'>
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="Guide">
+        <button style="border-radius: 10px; cursor: pointer; margin:2px; float:right; background-color: gray; color: lightgrey;" onclick="slide2()"><b>X</b></button>
+        <h2 style="text-align: center; margin: 5px;">Wordle Nasıl Oynanır?</h2>
+        <ul style="padding-left: 20px; margin-top: 15px;">
+            <li>Wordle oyununda amaç 5 harfli gizli bir kelimeyi 6 tahmin içerisinde bulmaktır.</li>
+            <li>Her tahmininizde 5 harfli anlamlı bir Türkçe kelime girmeniz gerekir.</li>
+            <li>Tahminleriniz sonucunda her harf yeşil, sarı veya gri renklerinden birini alacaktır.</li>
+            <li>Yeşil renk o harfin gizli kelimede o konumda olduğunu, sarı renk o harfin kelimede geçtiğini fakat yerinin yanlış olduğunu, gri renk ise o harfin kelimede olmadığını gösterir.</li>
+            <img src="Game_Example.JPG" style="margin-top: 10px; width: 100%">
+            <li>Örneğin bu tahmine göre gizli kelimenin 2. harfi E'dir çünkü rengi yeşil yanmıştır.</li>
+            <li>Ayrıca kelimede M ve R hafleri vardır fakat yerleri yanlıştır.</li>
+            <li>Son olarak A ve K harfleri gizli kelimede yer almamaktadır.</li>
+        </ul>
+    </div>
+    <canvas id="Statistics"></canvas>
+    <button id="Restart" onmouseover="change_picture()" onmouseout="change_picture2()" onclick="Restart_the_game()">
+        <img src="redo-icon.png" id="Redo">
+    </button>
+    <button id="Stats" onmouseover="change_picture3()" onmouseout="change_picture4()" onclick="slide()">
+        <img src="stats.png" id="Stats_Img">
+    </button>
+    <button id="Info" onmouseover="change_picture5()" onmouseout="change_picture6()" onclick="slide2()">
+        <img src="question_mark.png" id="Info_Img">
+    </button>
+    <div id="Title">Wordle</div>
+    <hr id="Line">
     <table id="my_table">
         <tr>
             <td class="letters"></td>
